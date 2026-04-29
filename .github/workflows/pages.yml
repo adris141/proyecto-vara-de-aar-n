@@ -27,3 +27,4 @@ jobs:
           path: web_editor
       - id: deployment
         uses: actions/deploy-pages@v4
+# trigger: 2026-04-29T00:00:00Z
