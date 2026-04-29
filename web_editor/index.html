@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Biblia VA Web Editor</title>
+  <style>
+    :root { --bg:#f6f7fb; --card:#fff; --txt:#101828; --muted:#667085; --line:#d0d5dd; --brand:#0f766e; }
+    *{box-sizing:border-box} body{margin:0;font-family:ui-sans-serif,system-ui;background:var(--bg);color:var(--txt)}
+    header{padding:14px 18px;background:linear-gradient(90deg,#0f766e,#155eef);color:#fff}
+    main{display:grid;grid-template-columns:1.2fr 1.2fr .9fr;gap:12px;padding:12px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;min-height:120px}
+    .row{display:flex;gap:8px;align-items:center;margin:8px 0;flex-wrap:wrap}
+    select,input,button,textarea{border:1px solid var(--line);border-radius:8px;padding:8px;background:#fff}
+    button{cursor:pointer;background:#eef4ff}
+    textarea{width:100%;min-height:180px}
+    .verse{white-space:pre-wrap;line-height:1.45;border:1px dashed var(--line);padding:10px;border-radius:8px;min-height:110px}
+    .muted{color:var(--muted);font-size:12px}
+    .list{max-height:240px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:8px}
+    @media (max-width:1000px){main{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<header>
+  <h2 style="margin:0">Biblia VA · Web Editor</h2>
+  <div class="muted" style="color:#d1e9ff">Previsualiza versiones, compara y recopila cambios antes del build final.</div>
+</header>
+<main>
+  <section class="card">
+    <h3>Lector</h3>
+    <div class="row"><label>Versión</label><select id="readerVersion"></select></div>
+    <div class="row">
+      <label>Libro</label><input id="book" value="40" size="4" />
+      <label>Cap</label><input id="chapter" value="1" size="4" />
+      <label>Vers</label><input id="verse" value="1" size="4" />
+      <button id="loadReader">Cargar</button>
+    </div>
+    <div id="readerOut" class="verse"></div>
+    <div id="readerMeta" class="muted"></div>
+  </section>
+  <section class="card">
+    <h3>Comparador</h3>
+    <div class="row"><label>A</label><select id="cmpA"></select><label>B</label><select id="cmpB"></select><button id="loadCompare">Comparar</button></div>
+    <div class="row muted">Usa mismas referencias de libro/cap/vers del lector.</div>
+    <div class="row"><div style="flex:1"><div class="muted">Versión A</div><div id="cmpAOut" class="verse"></div></div></div>
+    <div class="row"><div style="flex:1"><div class="muted">Versión B</div><div id="cmpBOut" class="verse"></div></div></div>
+  </section>
+  <aside class="card">
+    <h3>Recopilación</h3>
+    <div class="row"><button id="addNote">Agregar cambio</button><button id="exportNotes">Exportar JSON</button></div>
+    <textarea id="noteText" placeholder="Describe el cambio que hiciste..."></textarea>
+    <div class="muted">Historial local (navegador)</div>
+    <div id="notes" class="list"></div><hr/>
+    <div id="status" class="muted">Cargando catálogo...</div>
+  </aside>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
